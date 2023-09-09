@@ -1,6 +1,7 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
 import Genero from "./Genero.js";
+import Temporada from "./Temporada.js";
 
 const Serie = db.define('Serie',{
     id_serie:{
@@ -61,6 +62,16 @@ Genero.belongsToMany(Serie,{
     through: 'SerieGenero',
     foreignKey: 'id_genero',
     otherKey: 'id_serie',
+});
+
+Serie.hasMany(Temporada,{
+    foreignKey: 'id_serie',
+    targetKey: 'id_serie'
+});
+
+Temporada.belongsTo(Serie,{
+    foreignKey: 'id_serie',
+    sourceKey:'id_serie'
 });
 
 export default Serie;

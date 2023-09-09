@@ -1,8 +1,10 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
+import Pelicula from "./Pelicula.js";
+import Serie from "./Serie.js";
 
-const Clacificaion = db.define('Clacificaion',{
-    pk_ID:{
+const Clasificacion = db.define('Clasificacion',{
+    id_clasificacion:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull:false,
@@ -14,8 +16,28 @@ const Clacificaion = db.define('Clacificaion',{
     }
 },
 {
-    tableName:'Clacificaion',
+    tableName:'Clasificacion',
     timestamps: false
 });
 
-export default Clacificaion;
+Clasificacion.belongsTo(Pelicula, {
+    foreignKey: 'id_pelicula',
+    targetKey: 'id_clasificacion'
+});
+
+Pelicula.hasOne(Clasificacion, {
+    foreignKey: 'id_pelicula',
+    sourceKey: 'id_clasificacion'
+});
+
+Clasificacion.belongsTo(Serie, {
+    foreignKey: 'id_serie',
+    targetKey: 'id_clasificacion'
+});
+
+Serie.hasOne(Clasificacion, {
+    foreignKey: 'id_serie',
+    sourceKey: 'id_clasificacion'
+});
+
+export default Clasificacion;
