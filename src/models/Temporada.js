@@ -1,8 +1,9 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
+import Episodio from "./Episodio.js";
 
 const Temporada = db.define('Temporada',{
-    pk_ID:{
+    id_temporada:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull:false,
@@ -22,6 +23,14 @@ const Temporada = db.define('Temporada',{
     timestamps: false
 });
 
-//realcion 1 a 1 serie
+Temporada.hasMany(Episodio,{
+    foreignKey: 'id_temporada',
+    targetKey: 'id_temporada'
+});
+
+Episodio.belongsTo(Temporada,{
+    foreignKey: 'id_temporada',
+    sourceKey:'id_temporada'
+});
 
 export default Temporada;

@@ -55,11 +55,12 @@ Pelicula.belongsToMany(Genero,{
     through: 'PeliculaGenero',
     foreignKey: 'id_pelicula',
     otherKey: 'id_genero',
-})
+});
+
 Genero.belongsToMany(Pelicula,{
     through: 'PeliculaGenero',
     foreignKey: 'id_genero',
     otherKey: 'id_pelicula',
-})
+});
 
 export default Pelicula;
