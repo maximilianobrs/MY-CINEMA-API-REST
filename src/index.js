@@ -11,6 +11,7 @@ import db from './db/db.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 //Database
+
 try {
     await db.sync({ force: true });
 } catch (error) {

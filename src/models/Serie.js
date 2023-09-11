@@ -1,9 +1,5 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
-import Clasificacion from "./Clasificacion.js";
-import Comentario from "./Comentario.js";
-import Temporada from "./Temporada.js";
-import Valoracion from "./Valoracion.js";
 
 const Serie = db.define('Serie', {
     id_serie: {
@@ -53,17 +49,5 @@ const Serie = db.define('Serie', {
         tableName: 'Serie',
         timestamps: false
     });
-
-Serie.hasOne(Clasificacion, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
-Clasificacion.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
-
-Serie.hasMany(Comentario, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
-Comentario.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
-
-Serie.hasMany(Temporada, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
-Temporada.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
-
-Serie.hasMany(Valoracion, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
-Valoracion.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 
 export default Serie;
