@@ -1,4 +1,5 @@
 import service from "../services/Clasificacion.js";
+import Clasificacion from "../models/Clasificacion.js";
 
 export const getClasificacion = (req,res)=>{
 

@@ -3,54 +3,35 @@ import { DataTypes } from "sequelize";
 import Pelicula from "./Pelicula.js";
 import Serie from "./Serie.js";
 
-const Actor = db.define('Actor',{
-    id_actor:{
+const Actor = db.define('Actor', {
+    id_actor: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull:false,
-        autoIncrement:true
+        allowNull: false,
+        autoIncrement: true
     },
-    nombre:{
+    nombre: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    fechaNacimiento:{
+    fechaNacimiento: {
         type: DataTypes.DATE,
-        allowNull:false
+        allowNull: false
     },
-    nacionalidad:{
+    nacionalidad: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
 },
-{
-    tableName:'Actor',
-    timestamps: false
-});
+    {
+        tableName: 'Actor',
+        timestamps: false
+    });
 
-Actor.belongsToMany(Pelicula,{
-    through: 'ActorPelicula',
-    foreignKey: 'id_actor',
-    otherKey: 'id_pelicula',
-});
+Actor.belongsToMany(Pelicula, { through: 'ActorPelicula', foreignKey: 'id_actor' });
+Pelicula.belongsToMany(Actor, { through: 'ActorPelicula', foreignKey: 'id_pelicula' });
 
-Pelicula.belongsToMany(Actor,{
-    through: 'ActorPelicula',
-    foreignKey: 'id_pelicula',
-    otherKey: 'id_actor',
-});
-
-Actor.belongsToMany(Serie,{
-    through: 'ActorSerie',
-    foreignKey: 'id_actor',
-    otherKey: 'id_serie',
-});
-
-Serie.belongsToMany(Actor,{
-    through: 'ActorSerie',
-    foreignKey: 'id_serie',
-    otherKey: 'id_actor',
-});
-
+Actor.belongsToMany(Serie, { through: 'ActorSerie', foreignKey: 'id_actor' });
+Serie.belongsToMany(Actor, { through: 'ActorSerie', foreignKey: 'id_serie' });
 
 export default Actor;

@@ -1,77 +1,69 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
-import Genero from "./Genero.js";
+import Clasificacion from "./Clasificacion.js";
+import Comentario from "./Comentario.js";
 import Temporada from "./Temporada.js";
+import Valoracion from "./Valoracion.js";
 
-const Serie = db.define('Serie',{
-    id_serie:{
+const Serie = db.define('Serie', {
+    id_serie: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull:false,
-        autoIncrement:true
+        allowNull: false,
+        autoIncrement: true
     },
-    titulo:{
+    titulo: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    aniaLanzamiento:{
+    aniaLanzamiento: {
         type: DataTypes.DATE,
-        allowNull:false
+        allowNull: false
     },
-    genero:{
+    genero: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    sinopsis:{
+    sinopsis: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    creador:{
+    creador: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    duracion:{
+    duracion: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    clasificacion:{
+    clasificacion: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    poster:{
+    poster: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    trailer:{
+    trailer: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     }
 },
-{
-    tableName:'Serie',
-    timestamps: false
-});
+    {
+        tableName: 'Serie',
+        timestamps: false
+    });
 
-Serie.belongsToMany(Genero,{
-    through: 'SerieGenero',
-    foreignKey: 'id_serie',
-    otherKey: 'id_genero',
-});
+Serie.hasOne(Clasificacion, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
+Clasificacion.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 
-Genero.belongsToMany(Serie,{
-    through: 'SerieGenero',
-    foreignKey: 'id_genero',
-    otherKey: 'id_serie',
-});
+Serie.hasMany(Comentario, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
+Comentario.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 
-Serie.hasMany(Temporada,{
-    foreignKey: 'id_serie',
-    targetKey: 'id_serie'
-});
+Serie.hasMany(Temporada, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
+Temporada.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 
-Temporada.belongsTo(Serie,{
-    foreignKey: 'id_serie',
-    sourceKey:'id_serie'
-});
+Serie.hasMany(Valoracion, { foreignKey: 'id_serie', sourceKey: 'id_serie' });
+Valoracion.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 
 export default Serie;

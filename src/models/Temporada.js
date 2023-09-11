@@ -23,14 +23,7 @@ const Temporada = db.define('Temporada',{
     timestamps: false
 });
 
-Temporada.hasMany(Episodio,{
-    foreignKey: 'id_temporada',
-    targetKey: 'id_temporada'
-});
-
-Episodio.belongsTo(Temporada,{
-    foreignKey: 'id_temporada',
-    sourceKey:'id_temporada'
-});
+Temporada.hasMany(Episodio, { foreignKey: 'id_temporada', sourceKey: 'id_temporada' });
+Episodio.belongsTo(Temporada, { foreignKey: 'id_temporada', targetKey: 'id_temporada' });
 
 export default Temporada;

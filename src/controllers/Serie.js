@@ -1,4 +1,5 @@
 import service from "../services/Serie.js";
+import Serie from "../models/Serie.js";
 
 export const getSerie = (req,res)=>{
 

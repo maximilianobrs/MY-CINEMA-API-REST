@@ -20,24 +20,4 @@ const Valoracion = db.define('Valoracion',{
     timestamps: false
 });
 
-Valoracion.belongsTo(Pelicula, {
-    foreignKey: 'id_pelicula',
-    targetKey: 'id_valoracion'
-});
-
-Pelicula.hasMany(Valoracion, {
-    foreignKey: 'id_valoracion',
-    sourceKey: 'id_pelicula'
-});
-
-Valoracion.belongsTo(Serie, {
-    foreignKey: 'id_serie',
-    targetKey: 'id_valoracion'
-});
-
-Serie.hasMany(Valoracion, {
-    foreignKey: 'id_valoracion',
-    sourceKey: 'id_serie'
-});
-
 export default Valoracion;

@@ -1,6 +1,8 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
-import Genero from "./Genero.js";
+import Clasificacion from "./Clasificacion.js";
+import Comentario from "./Comentario.js";
+import Valoracion from "./Valoracion.js";
 
 const Pelicula = db.define('Pelicula',{
     id_pelicula:{
@@ -33,10 +35,6 @@ const Pelicula = db.define('Pelicula',{
         type: DataTypes.STRING,
         allowNull:false
     },
-    clasificacion:{
-        type: DataTypes.STRING,
-        allowNull:false
-    },
     poster:{
         type: DataTypes.STRING,
         allowNull:false
@@ -51,16 +49,13 @@ const Pelicula = db.define('Pelicula',{
     timestamps: false
 });
 
-Pelicula.belongsToMany(Genero,{
-    through: 'PeliculaGenero',
-    foreignKey: 'id_pelicula',
-    otherKey: 'id_genero',
-});
+Pelicula.hasOne(Clasificacion, { foreignKey: 'id_pelicula', sourceKey: 'id_pelicula' });
+Clasificacion.belongsTo(Pelicula, { foreignKey: 'id_pelicula', targetKey: 'id_pelicula' });
 
-Genero.belongsToMany(Pelicula,{
-    through: 'PeliculaGenero',
-    foreignKey: 'id_genero',
-    otherKey: 'id_pelicula',
-});
+Pelicula.hasMany(Comentario, { foreignKey: 'id_pelicula', sourceKey: 'id_pelicula' });
+Comentario.belongsTo(Pelicula, { foreignKey: 'id_pelicula', targetKey: 'id_pelicula' });
+
+Pelicula.hasMany(Valoracion, { foreignKey: 'id_pelicula', sourceKey: 'id_pelicula' });
+Valoracion.belongsTo(Pelicula, { foreignKey: 'id_pelicula', targetKey: 'id_pelicula' });
 
 export default Pelicula;
