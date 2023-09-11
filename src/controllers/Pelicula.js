@@ -1,4 +1,5 @@
 import service from "../services/Pelicula.js";
+import Pelicula from "../models/Pelicula.js";
 
 export const getPelicula = (req,res)=>{
 

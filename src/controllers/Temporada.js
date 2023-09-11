@@ -1,4 +1,5 @@
 import service from "../services/Temporada.js";
+import Temporada from "../models/Temporada.js";
 
 export const getTemporada = (req,res)=>{
 

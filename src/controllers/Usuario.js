@@ -1,4 +1,5 @@
 import service from "../services/Usuario.js";
+import Usuario from "../models/Usuario.js";
 
 export const getUsuario = (req,res)=>{
 

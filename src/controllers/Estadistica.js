@@ -1,4 +1,5 @@
 import service from "../services/Estadistica.js";
+// import Estadistica from "../models/Estadistica.js";
 
 export const getEstadistica = (req,res)=>{
 
