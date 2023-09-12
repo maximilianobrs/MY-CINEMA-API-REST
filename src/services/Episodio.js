@@ -1,3 +1,5 @@
+import { Episodio } from "../models/index.js";
+
 const getEpisodio = (req,res)=>{
 
 };

@@ -50,11 +50,22 @@ Valoracion.belongsTo(Serie, { foreignKey: 'id_serie', targetKey: 'id_serie' });
 Temporada.hasMany(Episodio, { foreignKey: 'id_temporada', sourceKey: 'id_temporada' });
 Episodio.belongsTo(Temporada, { foreignKey: 'id_temporada', targetKey: 'id_temporada' });
 
+//Relacion usuario
+Usuario.hasMany(Valoracion, { foreignKey: 'id_usuario', sourceKey: 'id_usuario' });
+Valoracion.belongsTo(Usuario, { foreignKey: 'id_usuario', targetKey: 'id_usuario' });
+
+Usuario.hasMany(Comentario, { foreignKey: 'id_usuario', sourceKey: 'id_usuario' });
+Comentario.belongsTo(Usuario, { foreignKey: 'id_usuario', targetKey: 'id_usuario' });
+
 export {
+    Genero,
+    Episodio,
+    Actor,
     Serie,
     Pelicula,
     Clasificacion,
     Comentario,
     Temporada,
-    Valoracion
+    Valoracion,
+    Usuario
   };

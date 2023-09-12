@@ -1,25 +1,25 @@
 import db from "../db/db.js";
 import { DataTypes } from "sequelize";
 
-const Comentario = db.define('Comentario',{
-    id_comentario:{
+const Comentario = db.define('Comentario', {
+    id_comentario: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull:false,
-        autoIncrement:true
+        allowNull: false,
+        autoIncrement: true
     },
-    comentario:{
+    comentario: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
-    puntuacion:{
+    puntuacion: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     }
 },
-{
-    tableName:'Comentario',
-    timestamps: false
-});
+    {
+        tableName: 'Comentario',
+        timestamps: false
+    });
 
 export default Comentario;

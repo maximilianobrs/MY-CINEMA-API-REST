@@ -16,10 +16,6 @@ const Pelicula = db.define('Pelicula',{
         type: DataTypes.DATE,
         allowNull:false
     },
-    genero:{
-        type: DataTypes.STRING,
-        allowNull:false
-    },
     sinopsis:{
         type: DataTypes.STRING,
         allowNull:false

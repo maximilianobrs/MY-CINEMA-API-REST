@@ -16,10 +16,6 @@ const Serie = db.define('Serie', {
         type: DataTypes.DATE,
         allowNull: false
     },
-    genero: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     sinopsis: {
         type: DataTypes.STRING,
         allowNull: false
@@ -29,10 +25,6 @@ const Serie = db.define('Serie', {
         allowNull: false
     },
     duracion: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    clasificacion: {
         type: DataTypes.STRING,
         allowNull: false
     },

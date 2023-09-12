@@ -1,3 +1,5 @@
+import { Valoracion } from "../models/index.js";
+
 const getValoracion = (req,res)=>{
 
 };

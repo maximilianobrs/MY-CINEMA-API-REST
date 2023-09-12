@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/comentarios',getComentario);
 router.post('/comentarios',postComentario);
-router.put('/comentarios',putComentario);
-router.delete('/comentarios',deleteComentario);
+router.put('/comentarios/:id',putComentario);
+router.delete('/comentarios/:id',deleteComentario);
 
 export default router;

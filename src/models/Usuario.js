@@ -2,7 +2,7 @@ import db from "../db/db.js";
 import { DataTypes } from "sequelize";
 
 const Usuario = db.define('Usuario',{
-    pk_ID:{
+    id_usuario:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull:false,

@@ -1,3 +1,5 @@
+import { Genero } from "../models/index.js";
+
 const getGenero = (req,res)=>{
 
 };

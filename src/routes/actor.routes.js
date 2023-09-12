@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/actores',getActor);
 router.post('/actores',postActor);
-router.put('/actores',putActor);
-router.delete('/actores',deleteActor);
+router.put('/actores/:id',putActor);
+router.delete('/actores/:id',deleteActor);
 
 export default router;
