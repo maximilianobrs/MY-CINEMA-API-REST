@@ -1,6 +1,6 @@
 import service from "../services/Comentario.js";
 
-export const getComentario = async(req,res)=>{
+export const getComentario = async (req, res) => {
     try {
         const result = await service.getComentario();
 
@@ -14,11 +14,11 @@ export const getComentario = async(req,res)=>{
     };
 };
 
-export const postComentario = async(req,res)=>{
+export const postComentario = async (req, res) => {
     try {
-        const { nombre, descripcion, inicio, fin } = req.body;
+        const { comentario, puntuacion, id_serie, id_pelicula, id_usuario } = req.body;
 
-        if (!nombre || !inicio || !fin) {
+        if (!comentario || !puntuacion || !id_usuario) {
             return res.status(400).json({
                 code: 400,
                 message: 'Falta de datos requeridos',
@@ -26,7 +26,15 @@ export const postComentario = async(req,res)=>{
             });
         };
 
-        const result = await service.postComentario(nombre, descripcion, inicio, fin);
+        if (id_serie && id_pelicula) {
+            return res.status(400).json({
+                code: 400,
+                message: 'Se debe ingresar id_serie o un id_pelicula',
+                error: true
+            });
+        };
+
+        const result = await service.postComentario(comentario, puntuacion, id_serie, id_pelicula, id_usuario);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
@@ -39,24 +47,24 @@ export const postComentario = async(req,res)=>{
     };
 };
 
-export const putComentario = async(req,res)=>{
+export const putComentario = async (req, res) => {
     try {
-        const { nombre, descripcion, inicio, fin } = req.body;
+        const { comentario, puntuacion, id_serie, id_pelicula, id_usuario } = req.body;
         const { id } = req.params;
 
-        const result = await service.putComentario(id, nombre, descripcion, inicio, fin);
+        const result = await service.putComentario(id, comentario, puntuacion, id_serie, id_pelicula, id_usuario);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
-        }
+        };
 
-        res.status(200).json(result)
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
     };
 };
 
-export const deleteComentario = async(req,res)=>{
+export const deleteComentario = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -64,7 +72,7 @@ export const deleteComentario = async(req,res)=>{
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
-        }
+        };
 
         res.status(200).json(result);
 

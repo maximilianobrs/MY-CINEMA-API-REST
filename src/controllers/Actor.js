@@ -48,9 +48,9 @@ export const putActor = async (req, res) => {
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
-        }
+        };
 
-        res.status(200).json(result)
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
     };
@@ -64,7 +64,7 @@ export const deleteActor = async (req, res) => {
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
-        }
+        };
 
         res.status(200).json(result);
 
