@@ -49,10 +49,10 @@ export const postValoracion = async (req, res) => {
 
 export const putValoracion = async (req, res) => {
     try {
-        const { puntuacion, id_pelicula, id_serie, id_usuario } = req.body;
+        const { puntuacion } = req.body;
         const { id } = req.params;
 
-        const result = await service.putValoracion(id, puntuacion, id_pelicula, id_serie, id_usuario);
+        const result = await service.putValoracion(id, puntuacion);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

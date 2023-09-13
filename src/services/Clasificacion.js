@@ -33,16 +33,6 @@ const getClasificacion = async () => {
                         href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
                     },
                 ],
-                order: [
-                    {
-                        rel: 'ASC',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/asc/inicio`,
-                    },
-                    {
-                        rel: 'DESC',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/desc/inicio`,
-                    }
-                ]
             }
         })
 
@@ -74,14 +64,6 @@ const postClasificacion = async (nombre, id_pelicula, id_serie) => {
             });
         };
 
-        if (!id_pelicula && !id_serie) {
-            return {
-                code: 400,
-                message: 'Debes proporcionar al menos una película o serie válida',
-                error: true
-            };
-        }
-
         if (id_pelicula) {
             const pelicula = await Pelicula.findByPk(id_pelicula);
             if (pelicula) {
@@ -97,7 +79,6 @@ const postClasificacion = async (nombre, id_pelicula, id_serie) => {
 
         if (id_serie) {
             const serie = await Serie.findByPk(id_serie);
-
             if (serie) {
                 await clasificacion.addSerie(serie);
             } else {
@@ -123,7 +104,7 @@ const postClasificacion = async (nombre, id_pelicula, id_serie) => {
     };
 };
 
-const putClasificacion = async (id, nombre, id_pelicula, id_serie) => {
+const putClasificacion = async (id, nuevoNombre) => {
     try {
 
         const clasificacion = await Clasificacion.findByPk(id);
@@ -136,36 +117,7 @@ const putClasificacion = async (id, nombre, id_pelicula, id_serie) => {
             });
         };
 
-        if (id_pelicula) {
-            const pelicula = await Pelicula.findByPk(id_pelicula);
-            if (pelicula) {
-                await clasificacion.setPelicula([]);
-                await clasificacion.addPelicula(pelicula);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la película proporcionada',
-                    error: true
-                };
-            }
-        }
-
-        if (id_serie) {
-            const serie = await Serie.findByPk(id_serie);
-
-            if (serie) {
-                await clasificacion.setSerie([]);
-                await clasificacion.addSerie(serie);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la serie proporcionada',
-                    error: true
-                };
-            }
-        }
-
-        await Clasificacion.update({ nombre }, {
+        await Clasificacion.update({ nuevoNombre }, {
             where: { id_clasificacion: id }
         });
 
@@ -183,7 +135,7 @@ const putClasificacion = async (id, nombre, id_pelicula, id_serie) => {
     };
 };
 
-const deleteClasificacion = async (req, res) => {
+const deleteClasificacion = async (id) => {
     try {
         const clasificacion = await Clasificacion.findByPk(id);
 
@@ -207,7 +159,7 @@ const deleteClasificacion = async (req, res) => {
     } catch (error) {
         return ({
             code: error.code || 500,
-            message: 'Ocurrio un error en la clasificacion',
+            message: 'Ocurrio un error al eliminar la clasificacion',
             error: error.message || 'Error desconocido'
         });
     };

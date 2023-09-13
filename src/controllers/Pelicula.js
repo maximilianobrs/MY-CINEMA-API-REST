@@ -41,10 +41,10 @@ export const postPelicula = async (req, res) => {
 
 export const putPelicula = async (req, res) => {
     try {
-        const { titulo, aniaLanzamiento, sinopsis, director, duracion, poster, trailer } = req.body;
+        const { titulo, aniaLanzamiento, sinopsis, director, duracion, poster, trailer, generoIds } = req.body;
         const { id } = req.params;
 
-        const result = await service.putPelicula(id, titulo, aniaLanzamiento, sinopsis, director, duracion, poster, trailer);
+        const result = await service.putPelicula(id, titulo, aniaLanzamiento, sinopsis, director, duracion, poster, trailer, generoIds);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

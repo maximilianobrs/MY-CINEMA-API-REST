@@ -1,6 +1,6 @@
-import { Clasificacion, Comentario } from "../models/index.js";
+import { Comentario, Comentario, Usuario } from "../models/index.js";
 
-const getComentario = async() => {
+const getComentario = async () => {
     try {
         const comentarios = await Comentario.findAll();
 
@@ -32,16 +32,6 @@ const getComentario = async() => {
                         href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
                     },
                 ],
-                order: [
-                    {
-                        rel: 'ASC',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/asc/inicio`,
-                    },
-                    {
-                        rel: 'DESC',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/desc/inicio`,
-                    }
-                ]
             }
         })
 
@@ -60,19 +50,32 @@ const getComentario = async() => {
     }
 };
 
-const postComentario = async(comentario, puntuacion,) => {
+const postComentario = async (textoComentario, puntuacion, id_serie, id_pelicula, id_usuario) => {
     try {
+
+        if (id_usuario) {
+            const usuario = await Usuario.findByPk(id_usuario);
+            if (usuario) {
+                await comentario.addPelicula(usuario);
+            } else {
+                return {
+                    code: 404,
+                    message: 'No se encontró el usuario proporcionada',
+                    error: true
+                };
+            }
+        }
 
         if (id_pelicula) {
             const pelicula = await Pelicula.findByPk(id_pelicula);
             if (pelicula) {
-                await Clasificacion.addPelicula(pelicula);
-            }else{
+                await comentario.addPelicula(pelicula);
+            } else {
                 return {
                     code: 404,
                     message: 'No se encontró la película proporcionada',
                     error: true
-                }; 
+                };
             }
         }
 
@@ -87,89 +90,89 @@ const postComentario = async(comentario, puntuacion,) => {
             }
         }
 
-        const clasificacion = await Clasificacion.create({ nombre, id_pelicula, id_serie });
+        const comentario = await Comentario.create({ textoComentario, puntuacion });
 
-        if (!clasificacion || clasificacion === null) {
+        if (!comentario || comentario === null) {
             return ({
                 code: 404,
-                message: 'No se pudo agregar la clasificacion',
+                message: 'No se pudo agregar el comentario',
                 error: true
             });
         };
 
         return {
             code: 200,
-            message: 'Clasificacion agregada correctamente',
+            message: 'comentario agregado correctamente',
         };
 
     } catch (error) {
         return ({
             code: error.code || 500,
-            message: 'Ocurrio un error al agregar la clasificacion',
+            message: 'Ocurrio un error al agregar el comentario',
             error: error.message || 'Error desconocido'
         });
     };
 };
 
-const putComentario = async(req, res) => {
+const putComentario = async (id, nuevoComentario, nuevaPuntuacion) => {
     try {
 
-        const actor = Clasificacion.findByPk(id);
+        const comentario = Comentario.findByPk(id);
 
-        if (!actor || actor === null) {
+        if (!comentario || comentario === null) {
             return ({
                 code: 404,
-                message: 'No se encontró el actor a actualizar',
+                message: 'No se encontró el comentario a actualizar',
                 error: true
             });
         };
 
-        await Clasificacion.update({ nombre, fechaNacimiento, nacionalidad }, {
-            where: { id_actor: id }
+        await comentario.update({ nuevoComentario, nuevaPuntuacion }, {
+            where: { id_comentario: id }
         });
-
-        if (id_pelicula) {
-            const pelicula = await Pelicula.findByPk(id_pelicula);
-            if (pelicula) {
-                await actor.addPelicula(pelicula);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la película proporcionada',
-                    error: true
-                };
-            }
-        }
-
-        if (id_serie) {
-            const serie = await Serie.findByPk(id_serie);
-            if (serie) {
-                await actor.addSerie(serie);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la serie proporcionada',
-                    error: true
-                };
-            }
-        }
 
         return ({
             code: 200,
-            message: 'Actor actualizado correctamente',
+            message: 'comentario actualizado correctamente',
         });
 
     } catch (error) {
         return ({
             code: error.code || 500,
-            message: 'Ocurrió un error al actualizar el actor',
+            message: 'Ocurrió un error al actualizar el comentario',
             error: error.message || 'Error desconocido'
         });
     };
 };
 
-const deleteComentario = async(req, res) => {
+const deleteComentario = async (id) => {
+    try {
+        const comentario = await Comentario.findByPk(id);
 
+        if (!comentario || comentario === null) {
+            return ({
+                code: 404,
+                message: 'No se encontró el comentario a eliminar',
+                error: true
+            });
+        };
+
+        await comentario.destroy({
+            where: { id_comentario: id }
+        });
+
+        return ({
+            code: 200,
+            message: 'comentario eliminada correctamente'
+        });
+
+    } catch (error) {
+        return ({
+            code: error.code || 500,
+            message: 'Ocurrio un error al eliminar comentario',
+            error: error.message || 'Error desconocido'
+        });
+    };
 };
 
 const service = {

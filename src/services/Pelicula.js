@@ -33,16 +33,6 @@ const getPelicula = async () => {
                         href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
                     },
                 ],
-                order: [
-                    {
-                        rel: 'ASC',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/asc/inicio`,
-                    },
-                    {
-                        rel: 'DESC',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/desc/inicio`,
-                    }
-                ]
             }
         })
 
