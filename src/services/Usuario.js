@@ -1,3 +1,5 @@
+import { Usuario } from "../models/index.js";
+
 const getUsuario = (req,res)=>{
 
 };

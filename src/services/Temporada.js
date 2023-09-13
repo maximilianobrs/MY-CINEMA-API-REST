@@ -1,3 +1,5 @@
+import { Temporada } from "../models/index.js";
+
 const getTemporada = (req,res)=>{
 
 };

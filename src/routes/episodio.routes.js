@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/Episodios',getEpisodio);
 router.post('/Episodios',postEpisodio);
-router.put('/Episodios',putEpisodio);
-router.delete('/Episodios',deleteEpisodio);
+router.put('/Episodios/:id',putEpisodio);
+router.delete('/Episodios/:id',deleteEpisodio);
 
 export default router;

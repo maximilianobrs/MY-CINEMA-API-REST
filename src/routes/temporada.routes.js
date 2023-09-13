@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/temporadas',getTemporada);
 router.post('/temporadas',postTemporada);
-router.put('/temporadas',putTemporada);
-router.delete('/temporadas',deleteTemporada);
+router.put('/temporadas/:id',putTemporada);
+router.delete('/temporadas/:id',deleteTemporada);
 
 export default router;

@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/peliculas',getPelicula);
 router.post('/peliculas',postPelicula);
-router.put('/peliculas',putPelicula);
-router.delete('/peliculas',deletePelicula);
+router.put('/peliculas/:id',putPelicula);
+router.delete('/peliculas/:id',deletePelicula);
 
 export default router;
