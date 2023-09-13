@@ -26,7 +26,7 @@ export const postComentario = async (req, res) => {
             });
         };
 
-        if (id_serie && id_pelicula) {
+        if (!id_serie && !id_pelicula) {
             return res.status(400).json({
                 code: 400,
                 message: 'Se debe ingresar id_serie o un id_pelicula',
@@ -49,10 +49,10 @@ export const postComentario = async (req, res) => {
 
 export const putComentario = async (req, res) => {
     try {
-        const { comentario, puntuacion, id_serie, id_pelicula, id_usuario } = req.body;
+        const { comentario, puntuacion } = req.body;
         const { id } = req.params;
 
-        const result = await service.putComentario(id, comentario, puntuacion, id_serie, id_pelicula, id_usuario);
+        const result = await service.putComentario(id, comentario, puntuacion);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

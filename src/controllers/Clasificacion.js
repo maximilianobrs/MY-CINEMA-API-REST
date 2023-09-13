@@ -26,6 +26,14 @@ export const postClasificacion = async (req, res) => {
             });
         };
 
+        if (!id_serie && !id_pelicula) {
+            return res.status(400).json({
+                code: 400,
+                message: 'Debes proporcionar al menos una película o serie válida',
+                error: true
+            });
+        };
+
         const result = await service.postClasificacion(nombre, id_pelicula, id_serie);
 
         if (result.error) {
@@ -41,10 +49,10 @@ export const postClasificacion = async (req, res) => {
 
 export const putClasificacion = async (req, res) => {
     try {
-        const { nombre, id_pelicula, id_serie } = req.body;
+        const { nombre } = req.body;
         const { id } = req.params;
 
-        const result = await service.putClasificacion(id, nombre, id_pelicula, id_serie);
+        const result = await service.putClasificacion(id, nombre);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

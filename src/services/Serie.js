@@ -32,16 +32,6 @@ const getSerie = async (req, res) => {
                         href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
                     },
                 ],
-                order: [
-                    {
-                        rel: 'ASC',
-                        href: `http://localhost:${PORT}/api/v1/series/asc/inicio`,
-                    },
-                    {
-                        rel: 'DESC',
-                        href: `http://localhost:${PORT}/api/v1/series/desc/inicio`,
-                    }
-                ]
             }
         })
 

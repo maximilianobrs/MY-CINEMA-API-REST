@@ -33,16 +33,6 @@ const getActor = async () => {
                         href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
                     },
                 ],
-                order: [
-                    {
-                        rel: 'ASC',
-                        href: `http://localhost:${PORT}/api/v1/actores/asc/inicio`,
-                    },
-                    {
-                        rel: 'DESC',
-                        href: `http://localhost:${PORT}/api/v1/actores/desc/inicio`,
-                    }
-                ]
             }
         })
 
@@ -114,7 +104,7 @@ const postActor = async (nombre, fechaNacimiento, nacionalidad, id_pelicula, id_
     };
 };
 
-const putActor = async (id, nombre, fechaNacimiento, nacionalidad, id_pelicula, id_serie) => {
+const putActor = async (id, nuevoNombre, nuevaFechanacimiento, nuevaNacionalidad) => {
     try {
 
         const actor = await Actor.findByPk(id);
@@ -127,35 +117,9 @@ const putActor = async (id, nombre, fechaNacimiento, nacionalidad, id_pelicula, 
             });
         };
 
-        await Actor.update({ nombre, fechaNacimiento, nacionalidad }, {
+        await Actor.update({ nuevoNombre, nuevaFechanacimiento, nuevaNacionalidad }, {
             where: { id_actor: id }
         });
-
-        if (id_pelicula) {
-            const pelicula = await Pelicula.findByPk(id_pelicula);
-            if (pelicula) {
-                await Actor.addPelicula(pelicula);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la película proporcionada',
-                    error: true
-                };
-            }
-        };
-
-        if (id_serie) {
-            const serie = await Serie.findByPk(id_serie);
-            if (serie) {
-                await Actor.addSerie(serie);
-            } else {
-                return {
-                    code: 404,
-                    message: 'No se encontró la serie proporcionada',
-                    error: true
-                };
-            }
-        };
 
         return ({
             code: 200,
