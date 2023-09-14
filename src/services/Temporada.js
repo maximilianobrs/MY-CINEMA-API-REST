@@ -1,19 +1,19 @@
 import { Temporada } from "../models/index.js";
 
-const getTemporada = (req,res)=>{
+const getTemporada = () => {
 
 };
 
-const postTemporada = (req,res)=>{
-    
+const postTemporada = (numeroTemporada, anioLanzamiento, id_serie) => {
+
 };
 
-const putTemporada = (req,res)=>{
-    
+const putTemporada = (id, numeroTemporada, anioLanzamiento, id_serie) => {
+
 };
 
-const deleteTemporada = (req,res)=>{
-    
+const deleteTemporada = (id) => {
+
 };
 
 const service = {

@@ -53,7 +53,7 @@ const getActor = async () => {
 
 const postActor = async (nombre, fechaNacimiento, nacionalidad, id_pelicula, id_serie) => {
     try {
-        
+
         const actor = await Actor.create({ nombre, fechaNacimiento, nacionalidad });
 
         if (!actor || actor === null) {
@@ -93,6 +93,7 @@ const postActor = async (nombre, fechaNacimiento, nacionalidad, id_pelicula, id_
         return {
             code: 200,
             message: 'Actor agregado correctamente',
+            actor: actor
         };
 
     } catch (error) {

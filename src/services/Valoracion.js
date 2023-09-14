@@ -1,19 +1,19 @@
 import { Valoracion } from "../models/index.js";
 
-const getValoracion = (req,res)=>{
+const getValoracion = () => {
 
 };
 
-const postValoracion = (req,res)=>{
-    
+const postValoracion = (puntuacion, id_pelicula, id_serie, id_usuario) => {
+
 };
 
-const putValoracion = (req,res)=>{
-    
+const putValoracion = (id, puntuacion) => {
+
 };
 
-const deleteValoracion = (req,res)=>{
-    
+const deleteValoracion = (id) => {
+
 };
 
 const service = {

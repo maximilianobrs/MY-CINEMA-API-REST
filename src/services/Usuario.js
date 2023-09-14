@@ -1,18 +1,18 @@
 import { Usuario } from "../models/index.js";
 
-const getUsuario = (req,res)=>{
+const getUsuario = ()=>{
 
 };
 
-const postUsuario = (req,res)=>{
+const postUsuario = (userName, nombre, apellido, email, password, rol, fechaNacimiento)=>{
     
 };
 
-const putUsuario = (req,res)=>{
+const putUsuario = (id, userName, nombre, apellido, email, password, rol, fechaNacimiento)=>{
     
 };
 
-const deleteUsuario = (req,res)=>{
+const deleteUsuario = (id)=>{
     
 };
 
