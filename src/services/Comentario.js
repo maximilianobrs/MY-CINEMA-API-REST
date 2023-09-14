@@ -103,6 +103,7 @@ const postComentario = async (textoComentario, puntuacion, id_serie, id_pelicula
         return {
             code: 200,
             message: 'comentario agregado correctamente',
+            comentario: comentario
         };
 
     } catch (error) {
@@ -127,7 +128,7 @@ const putComentario = async (id, nuevoComentario, nuevaPuntuacion) => {
             });
         };
 
-        await comentario.update({ nuevoComentario, nuevaPuntuacion }, {
+        await Comentario.update({ nuevoComentario, nuevaPuntuacion }, {
             where: { id_comentario: id }
         });
 
@@ -157,7 +158,7 @@ const deleteComentario = async (id) => {
             });
         };
 
-        await comentario.destroy({
+        await Comentario.destroy({
             where: { id_comentario: id }
         });
 

@@ -80,6 +80,7 @@ const postPelicula = async (titulo, aniaLanzamiento, sinopsis, director, duracio
         return {
             code: 200,
             message: 'pelicula agregado correctamente',
+            pelicula: pelicula
         };
 
     } catch (error) {

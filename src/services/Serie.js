@@ -79,6 +79,7 @@ const postSerie = async (req, res) => {
         return {
             code: 200,
             message: 'serie agregado correctamente',
+            serie: serie
         };
 
     } catch (error) {
@@ -90,7 +91,7 @@ const postSerie = async (req, res) => {
     };
 };
 
-const putSerie = async (id,titulo, aniaLanzamiento, sinopsis, creador, duracion, poster, trailer, generoIds) => {
+const putSerie = async (id, titulo, aniaLanzamiento, sinopsis, creador, duracion, poster, trailer, generoIds) => {
     try {
 
         const serie = Serie.findByPk(id);

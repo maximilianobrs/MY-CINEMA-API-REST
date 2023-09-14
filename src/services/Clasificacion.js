@@ -93,6 +93,7 @@ const postClasificacion = async (nombre, id_pelicula, id_serie) => {
         return {
             code: 200,
             message: 'Clasificacion agregada correctamente',
+            clasificacion:clasificacion
         };
 
     } catch (error) {
