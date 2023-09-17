@@ -22,6 +22,11 @@ const getGenero = async () => {
                         href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
@@ -81,7 +86,7 @@ const postGenero = async(textgenero) => {
 const putGenero = async(id, nuevoGenero) => {
     try {
 
-        const genero = Genero.findByPk(id);
+        const genero = await Genero.findByPk(id);
 
         if (!genero || genero === null) {
             return ({

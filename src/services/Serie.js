@@ -22,6 +22,11 @@ const getSerie = async (req, res) => {
                         href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
@@ -124,7 +129,7 @@ const putSerie = async (id, titulo, aniaLanzamiento, sinopsis, creador, duracion
 
 const deleteSerie = async (id) => {
     try {
-        const serie = Serie.findByPk(id);
+        const serie = await Serie.findByPk(id);
 
         if (!serie || serie === null) {
             return ({
