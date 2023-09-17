@@ -23,6 +23,11 @@ const getClasificacion = async () => {
                         href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,

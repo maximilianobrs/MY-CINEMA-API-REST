@@ -23,6 +23,11 @@ const getActor = async () => {
                         href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,

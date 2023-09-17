@@ -22,6 +22,11 @@ const getComentario = async () => {
                         href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
@@ -118,7 +123,7 @@ const postComentario = async (textoComentario, puntuacion, id_serie, id_pelicula
 const putComentario = async (id, nuevoComentario, nuevaPuntuacion) => {
     try {
 
-        const comentario = Comentario.findByPk(id);
+        const comentario = await Comentario.findByPk(id);
 
         if (!comentario || comentario === null) {
             return ({

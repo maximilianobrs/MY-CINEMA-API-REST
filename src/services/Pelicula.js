@@ -23,6 +23,11 @@ const getPelicula = async () => {
                         href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
                     },
                     {
+                        rel: 'post',
+                        method: 'POST',
+                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
+                    },
+                    {
                         rel: 'update',
                         method: 'PUT',
                         href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
@@ -95,7 +100,7 @@ const postPelicula = async (titulo, aniaLanzamiento, sinopsis, director, duracio
 const putPelicula = async (id, titulo, aniaLanzamiento, sinopsis, director, duracion, poster, trailer) => {
     try {
 
-        const pelicula = Pelicula.findByPk(id);
+        const pelicula = await Pelicula.findByPk(id);
 
         if (!pelicula || pelicula === null) {
             return ({
@@ -125,7 +130,7 @@ const putPelicula = async (id, titulo, aniaLanzamiento, sinopsis, director, dura
 
 const deletePelicula = async (req, res) => {
     try {
-        const pelicula = Pelicula.findByPk(id);
+        const pelicula = await Pelicula.findByPk(id);
 
         if (!pelicula || pelicula === null) {
             return ({

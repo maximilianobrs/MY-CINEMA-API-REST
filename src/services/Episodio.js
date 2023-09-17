@@ -1,4 +1,4 @@
-import { Episodio } from "../models/index.js";
+import { Episodio, Temporada } from "../models/index.js";
 
 const getEpisodio = async () => {
     try {
@@ -19,6 +19,11 @@ const getEpisodio = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
+                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
+                    },
+                    {
+                        rel: 'post',
+                        method: 'POST',
                         href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
                     },
                     {
@@ -52,8 +57,16 @@ const getEpisodio = async () => {
 
 const postEpisodio = async (titulo, numeroEpisodio, sinopsis, duracion, id_temporada) => {
     try {
-
+        const temporada = await Temporada.findByPk(id_temporada);
         const episodio = await Episodio.create({ titulo, numeroEpisodio, sinopsis, duracion, id_temporada });
+
+        if (!temporada || temporada === null) {
+            return ({
+                code: 404,
+                message: 'No se pudo entrontrar la temporda temporada',
+                error: true
+            });
+        };
 
         if (!episodio || episodio === null) {
             return ({
@@ -81,7 +94,7 @@ const postEpisodio = async (titulo, numeroEpisodio, sinopsis, duracion, id_tempo
 const putEpisodio = async (id, titulo, numeroEpisodio, sinopsis, duracion, id_temporada) => {
     try {
 
-        const episodio = Episodio.findByPk(id);
+        const episodio = await Episodio.findByPk(id);
 
         if (!episodio || episodio === null) {
             return ({
