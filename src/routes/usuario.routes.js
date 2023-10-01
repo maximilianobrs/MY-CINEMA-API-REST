@@ -4,6 +4,7 @@ import { auth } from "../auth/auth.js";
 
 const router = Router();
 
+router.get('/usuarios/:id', auth, getUsuario);
 router.get('/usuarios', auth, getUsuario);
 router.post('/usuarios', postUsuario);
 router.put('/usuarios/:id', auth, putUsuario);

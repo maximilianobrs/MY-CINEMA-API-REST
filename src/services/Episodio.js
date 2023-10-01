@@ -1,6 +1,57 @@
 import { Episodio, Temporada } from "../models/index.js";
 
-const getEpisodio = async () => {
+const getEpisodio = async (id) => {
+    try {
+        const episodio = await Episodio.findByPk(id);
+
+        if (episodio.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro el episodio',
+                error: true
+            };
+        }
+
+        const result = {
+            ...episodio.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                },
+            ],
+            all:{
+                href: `http://localhost:${PORT}/api/v1/episodios`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'episodio encontrado',
+            episodios: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener el episodio',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getEpisodios = async () => {
     try {
         const episodios = await Episodio.findAll();
 
@@ -19,22 +70,22 @@ const getEpisodio = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
+                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
+                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
+                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`,
+                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
                     },
                 ],
             }
@@ -154,6 +205,7 @@ const deleteEpisodio = async (id) => {
 
 const service = {
     getEpisodio,
+    getEpisodios,
     postEpisodio,
     putEpisodio,
     deleteEpisodio

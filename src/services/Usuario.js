@@ -1,6 +1,54 @@
 import { Usuario } from "../models/index.js";
 
-const getUsuario = async () => {
+const getUsuario = async (id) => {
+    try {
+        const usuario = await Usuario.findByPk(id);
+
+        if (usuario.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro el usuario',
+                error: true
+            };
+        }
+
+        const result = {
+            ...usuario.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                },
+            ],
+        }
+
+        return {
+            code: 200,
+            message: 'usuario encontrado',
+            usuarios: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener el usuario',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getUsuarios = async () => {
     try {
         const usuarios = await Usuario.findAll();
 
@@ -19,22 +67,22 @@ const getUsuario = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`,
+                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`,
+                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`,
+                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`,
+                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
                     },
                 ],
             }
@@ -113,7 +161,7 @@ const putUsuario = async (id, userName, nombre, apellido, email, password, rol, 
     };
 };
 
-const deleteUsuario = async(id) => {
+const deleteUsuario = async (id) => {
     try {
         const usuario = await Usuario.findByPk(id);
 
@@ -145,6 +193,7 @@ const deleteUsuario = async(id) => {
 
 const service = {
     getUsuario,
+    getUsuarios,
     postUsuario,
     putUsuario,
     deleteUsuario

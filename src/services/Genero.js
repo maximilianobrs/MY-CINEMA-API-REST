@@ -1,6 +1,57 @@
 import { Genero } from "../models/index.js";
 
-const getGenero = async () => {
+const getGenero = async (id) => {
+    try {
+        const generos = await Genero.findByPk(id);
+
+        if (generos.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro el genero',
+                error: true
+            };
+        }
+
+        const result = {
+            ...genero.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                },
+            ],
+            all:{
+                href: `http://localhost:${PORT}/api/v1/generos`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'genero encontrado',
+            generos: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener el genero',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getGeneros = async () => {
     try {
         const generos = await Genero.findAll();
 
@@ -19,22 +70,22 @@ const getGenero = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
+                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
+                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
+                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`,
+                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
                     },
                 ],
             }
@@ -55,7 +106,7 @@ const getGenero = async () => {
     }
 };
 
-const postGenero = async(textgenero) => {
+const postGenero = async (textgenero) => {
     try {
 
         const genero = await Genero.create({ textgenero });
@@ -83,7 +134,7 @@ const postGenero = async(textgenero) => {
     };
 };
 
-const putGenero = async(id, nuevoGenero) => {
+const putGenero = async (id, nuevoGenero) => {
     try {
 
         const genero = await Genero.findByPk(id);
@@ -114,7 +165,7 @@ const putGenero = async(id, nuevoGenero) => {
     };
 };
 
-const deleteGenero = async(id) => {
+const deleteGenero = async (id) => {
     try {
         const genero = await Genero.findByPk(id);
 
@@ -146,6 +197,7 @@ const deleteGenero = async(id) => {
 
 const service = {
     getGenero,
+    getGeneros,
     postGenero,
     putGenero,
     deleteGenero

@@ -2,7 +2,22 @@ import service from "../services/Valoracion.js";
 
 export const getValoracion = async (req, res) => {
     try {
-        const result = await service.getValoracion();
+        const { id } = req.params;
+        const result = await service.getValoracion(id);
+
+        if (result.error) {
+            return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
+        };
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
+    };
+};
+
+export const getValoraciones = async (req, res) => {
+    try {
+        const result = await service.getValoraciones();
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

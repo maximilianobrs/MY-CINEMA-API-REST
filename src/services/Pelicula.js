@@ -1,7 +1,58 @@
 import { Pelicula, Genero } from "../models/index.js";
 import { PORT } from "../configs/configs.js";
 
-const getPelicula = async () => {
+const getPelicula = async (id) => {
+    try {
+        const pelicula = await Pelicula.findByPk(id);
+
+        if (pelicula.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro la pelicula',
+                error: true
+            };
+        }
+
+        const result = {
+            ...pelicula.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                },
+            ],
+            all: {
+                href: `http://localhost:${PORT}/api/v1/peliculas`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'pelicula encontrada',
+            peliculas: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener la pelicula',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getPeliculas = async () => {
     try {
         const peliculas = await Pelicula.findAll();
 
@@ -20,22 +71,22 @@ const getPelicula = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
+                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
+                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
+                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`,
+                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
                     },
                 ],
             }
@@ -160,6 +211,7 @@ const deletePelicula = async (req, res) => {
 
 const service = {
     getPelicula,
+    getPeliculas,
     postPelicula,
     putPelicula,
     deletePelicula

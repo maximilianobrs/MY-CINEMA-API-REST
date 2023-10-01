@@ -2,7 +2,23 @@ import service from "../services/Actor.js";
 
 export const getActor = async (req, res) => {
     try {
-        const result = await service.getActor();
+        const { id } = req.params;
+        const result = await service.getActor(id);
+
+        if (result.error) {
+            return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
+        };
+
+        res.status(200).json(result);
+
+    } catch (error) {
+        res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
+    };
+};
+
+export const getActores = async (req, res) => {
+    try {
+        const result = await service.getActores();
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
@@ -26,7 +42,7 @@ export const postActor = async (req, res) => {
             });
         };
 
-        const result = await service.postActor(nombre, fechaNacimiento, nacionalidad,id_pelicula,id_serie);
+        const result = await service.postActor(nombre, fechaNacimiento, nacionalidad, id_pelicula, id_serie);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

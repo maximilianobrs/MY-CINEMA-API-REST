@@ -1,7 +1,58 @@
 import { Actor, Serie, Pelicula } from "../models/index.js";
 import { PORT } from "../configs/configs.js";
 
-const getActor = async () => {
+const getActor = async (id) => {
+    try {
+        const actor = await Actor.findByPk(id);
+
+        if (actor.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro el actor',
+                error: true
+            };
+        }
+
+        const result = {
+            ...actor.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                },
+            ],
+            all:{
+                href: `http://localhost:${PORT}/api/v1/actores`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'Actor no encontrado',
+            actores: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener el actor',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getActores = async () => {
     try {
         const actores = await Actor.findAll();
 
@@ -20,22 +71,22 @@ const getActor = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
                     },
                 ],
             }
@@ -173,6 +224,7 @@ const deleteActor = async (id) => {
 
 const service = {
     getActor,
+    getActores,
     postActor,
     putActor,
     deleteActor
