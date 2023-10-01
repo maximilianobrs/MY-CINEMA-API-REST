@@ -1,6 +1,57 @@
 import { Serie } from "../models/index.js";
 
-const getSerie = async (req, res) => {
+const getSerie = async (id) => {
+    try {
+        const serie = await Serie.findByPk(id);
+
+        if (serie.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro la serie',
+                error: true
+            };
+        }
+
+        const result = {
+            ...serie.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                },
+            ],
+            all: {
+                href: `http://localhost:${PORT}/api/v1/series`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'serie encontrada',
+            series: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener la serie',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getSeries = async () => {
     try {
         const series = await Serie.findAll();
 
@@ -12,29 +63,29 @@ const getSerie = async (req, res) => {
             };
         }
 
-        const result = series.map((actor) => {
+        const result = series.map((serie) => {
             return {
-                ...actor.dataValues,
+                ...serie.dataValues,
                 links: [
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/series/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
                     },
                 ],
             }
@@ -55,7 +106,7 @@ const getSerie = async (req, res) => {
     }
 };
 
-const postSerie = async (req, res) => {
+const postSerie = async (titulo, aniaLanzamiento, sinopsis, creador, duracion, poster, trailer, generoIds) => {
     try {
 
         const serie = await Serie.create({ titulo, aniaLanzamiento, sinopsis, creador, duracion, poster, trailer, generoIds });

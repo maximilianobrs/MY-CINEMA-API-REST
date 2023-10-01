@@ -1,7 +1,58 @@
 import { Clasificacion, Serie, Pelicula } from "../models/index.js";
 import { PORT } from "../configs/configs.js";
 
-const getClasificacion = async () => {
+const getClasificacion = async (id) => {
+    try {
+        const clasificacion = await Clasificacion.findByPk(id);
+
+        if (clasificacion.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro la clasificacion',
+                error: true
+            };
+        }
+
+        const result = {
+            ...clasificacion.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                },
+            ],
+            all:{
+                href: `http://localhost:${PORT}/api/v1/clasificaciones`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'clasificacion encontrada',
+            clasificaciones: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener la clasificacion',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getClasificaciones = async () => {
     try {
         const clasificaciones = await Clasificacion.findAll();
 
@@ -20,22 +71,22 @@ const getClasificacion = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
+                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
+                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
+                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`,
+                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                 ],
             }
@@ -98,7 +149,7 @@ const postClasificacion = async (nombre, id_pelicula, id_serie) => {
         return {
             code: 200,
             message: 'Clasificacion agregada correctamente',
-            clasificacion:clasificacion
+            clasificacion: clasificacion
         };
 
     } catch (error) {
@@ -173,6 +224,7 @@ const deleteClasificacion = async (id) => {
 
 const service = {
     getClasificacion,
+    getClasificaciones,
     postClasificacion,
     putClasificacion,
     deleteClasificacion

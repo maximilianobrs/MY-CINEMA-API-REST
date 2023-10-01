@@ -1,6 +1,57 @@
 import { Comentario, Comentario, Usuario } from "../models/index.js";
 
-const getComentario = async () => {
+const getComentario = async (id) => {
+    try {
+        const comentarios = await Comentario.findByPk(id);
+
+        if (comentarios.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro el comentario',
+                error: true
+            };
+        }
+
+        const result = {
+            ...actor.dataValues,
+            links: [
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                },
+            ],
+            all:{
+                href: `http://localhost:${PORT}/api/v1/comentarios`
+            }
+        }
+
+        return {
+            code: 200,
+            message: 'comentario encontrado',
+            comentarios: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener el comentario',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getComentarios = async () => {
     try {
         const comentarios = await Comentario.findAll();
 
@@ -19,22 +70,22 @@ const getComentario = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`,
+                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
                     },
                 ],
             }
@@ -183,6 +234,7 @@ const deleteComentario = async (id) => {
 
 const service = {
     getComentario,
+    getComentarios,
     postComentario,
     putComentario,
     deleteComentario

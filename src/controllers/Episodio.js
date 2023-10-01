@@ -2,7 +2,22 @@ import service from "../services/Episodio.js";
 
 export const getEpisodio = async (req, res) => {
     try {
-        const result = await service.getEpisodio();
+        const { id } = req.params;
+        const result = await service.getEpisodio(id);
+
+        if (result.error) {
+            return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
+        };
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
+    };
+};
+
+export const getEpisodios = async (req, res) => {
+    try {
+        const result = await service.getEpisodios();
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

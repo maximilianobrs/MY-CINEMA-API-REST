@@ -1,6 +1,59 @@
 import { Pelicula, Serie, Valoracion } from "../models/index.js";
 
-const getValoracion = async () => {
+const getValoracion = async (id) => {
+    try {
+        const valoracion = await Valoracion.findByPk(id);
+
+        if (valoracion.length === 0) {
+            return {
+                code: 404,
+                message: 'No se encontro la valoracion',
+                error: true
+            };
+        }
+
+        const result = {
+            ...valoracion.dataValues,
+            links: [
+                {
+                    rel: 'self',
+                    method: 'GET',
+                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                },
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                },
+                {
+                    rel: 'update',
+                    method: 'PUT',
+                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                },
+                {
+                    rel: 'delete',
+                    method: 'DELETE',
+                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                },
+            ],
+        }
+
+        return {
+            code: 200,
+            message: 'valoracion encontrada',
+            valoraciones: result
+        };
+
+    } catch (error) {
+        return {
+            code: error.code || 500,
+            message: 'Ocurrió un error al obtener la valoracion',
+            error: error.message || 'Error desconocido'
+        };
+    }
+};
+
+const getValoraciones = async () => {
     try {
         const valoraciones = await Valoracion.findAll();
 
@@ -19,22 +72,22 @@ const getValoracion = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`,
+                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`,
+                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`,
+                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`,
+                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
                     },
                 ],
             }
@@ -164,6 +217,7 @@ const deleteValoracion = async (id) => {
 
 const service = {
     getValoracion,
+    getValoraciones,
     postValoracion,
     putValoracion,
     deleteValoracion

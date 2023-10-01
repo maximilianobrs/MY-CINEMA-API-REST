@@ -2,7 +2,22 @@ import service from "../services/Usuario.js";
 
 export const getUsuario = async (req, res) => {
     try {
-        const result = await service.getUsuario();
+        const { id } = req.params;
+        const result = await service.getUsuario(id);
+
+        if (result.error) {
+            return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
+        };
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ code: 500, message: 'Ocurrio un error interno', error: error.message });
+    };
+};
+
+export const getUsuarios = async (req, res) => {
+    try {
+        const result = await service.getUsuarios();
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });
