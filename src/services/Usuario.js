@@ -1,4 +1,5 @@
 import { Usuario } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getUsuario = async (id) => {
     try {
@@ -18,19 +19,23 @@ const getUsuario = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                    href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                    href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                    href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                 },
-            ],
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/usuarios`
+                }
+            ]
         }
 
         return {
@@ -67,22 +72,22 @@ const getUsuarios = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                        href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                        href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                        href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/usuarios/${usuario.id_usuario}`
+                        href: `${BASE_URL}/usuarios/${usuario.id_usuario}`
                     },
                 ],
             }

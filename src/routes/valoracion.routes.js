@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/Valoraciones/:id', getValoracion);
 router.get('/Valoraciones', getValoraciones);
-router.post('/Valoraciones', auth, postValoracion);
-router.put('/Valoraciones/:id', auth, putValoracion);
-router.delete('/Valoraciones/:id', auth, deleteValoracion);
+router.post('/Valoraciones',  postValoracion);
+router.put('/Valoraciones/:id',  putValoracion);
+router.delete('/Valoraciones/:id',  deleteValoracion);
 
 export default router;

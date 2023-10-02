@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/generos/:id', getGenero);
 router.get('/generos', getGeneros);
-router.post('/generos', auth, postGenero);
-router.put('/generos/:id', auth, putGenero);
-router.delete('/generos/:id', auth, deleteGenero);
+router.post('/generos',  postGenero);
+router.put('/generos/:id',  putGenero);
+router.delete('/generos/:id',  deleteGenero);
 
 export default router;

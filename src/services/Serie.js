@@ -1,4 +1,5 @@
 import { Serie } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getSerie = async (id) => {
     try {
@@ -18,22 +19,23 @@ const getSerie = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                    href: `${BASE_URL}/series/${serie.id_serie}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                    href: `${BASE_URL}/series/${serie.id_serie}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                    href: `${BASE_URL}/series/${serie.id_serie}`
                 },
-            ],
-            all: {
-                href: `http://localhost:${PORT}/api/v1/series`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/series`
+                }
+            ]
         }
 
         return {
@@ -70,22 +72,22 @@ const getSeries = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                        href: `${BASE_URL}/series/${serie.id_serie}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                        href: `${BASE_URL}/series/${serie.id_serie}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                        href: `${BASE_URL}/series/${serie.id_serie}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/series/${serie.id_serie}`
+                        href: `${BASE_URL}/series/${serie.id_serie}`
                     },
                 ],
             }
@@ -210,6 +212,7 @@ const deleteSerie = async (id) => {
 
 const service = {
     getSerie,
+    getSeries,
     postSerie,
     putSerie,
     deleteSerie

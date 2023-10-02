@@ -1,4 +1,5 @@
 import { Genero } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getGenero = async (id) => {
     try {
@@ -18,22 +19,23 @@ const getGenero = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                    href: `${BASE_URL}/generos/${genero.id_genero}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                    href: `${BASE_URL}/generos/${genero.id_genero}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                    href: `${BASE_URL}/generos/${genero.id_genero}`
                 },
-            ],
-            all:{
-                href: `http://localhost:${PORT}/api/v1/generos`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/generos`
+                }
+            ]
         }
 
         return {
@@ -70,22 +72,22 @@ const getGeneros = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                        href: `${BASE_URL}/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                        href: `${BASE_URL}/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                        href: `${BASE_URL}/generos/${genero.id_genero}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/generos/${genero.id_genero}`
+                        href: `${BASE_URL}/generos/${genero.id_genero}`
                     },
                 ],
             }
@@ -109,7 +111,7 @@ const getGeneros = async () => {
 const postGenero = async (textgenero) => {
     try {
 
-        const genero = await Genero.create({ textgenero });
+        const genero = await Genero.create({ genero: textgenero });
 
         if (!genero || genero === null) {
             return ({

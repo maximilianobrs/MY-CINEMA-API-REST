@@ -1,4 +1,5 @@
 import { Pelicula, Serie, Valoracion } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getValoracion = async (id) => {
     try {
@@ -16,26 +17,25 @@ const getValoracion = async (id) => {
             ...valoracion.dataValues,
             links: [
                 {
-                    rel: 'self',
-                    method: 'GET',
-                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
-                },
-                {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                    href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                    href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                    href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                 },
-            ],
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/valoraciones`
+                },
+            ]
         }
 
         return {
@@ -72,22 +72,22 @@ const getValoraciones = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                        href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                        href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                        href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/valoraciones/${valoracion.id_valoracion}`
+                        href: `${BASE_URL}/valoraciones/${valoracion.id_valoracion}`
                     },
                 ],
             }

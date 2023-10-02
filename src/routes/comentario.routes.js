@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/comentarios/:id', getComentario);
 router.get('/comentarios', getComentarios);
-router.post('/comentarios', auth, postComentario);
-router.put('/comentarios/:id', auth, putComentario);
-router.delete('/comentarios/:id', auth, deleteComentario);
+router.post('/comentarios',  postComentario);
+router.put('/comentarios/:id',  putComentario);
+router.delete('/comentarios/:id',  deleteComentario);
 
 export default router;

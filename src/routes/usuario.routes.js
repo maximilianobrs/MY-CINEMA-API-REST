@@ -4,10 +4,10 @@ import { auth } from "../auth/auth.js";
 
 const router = Router();
 
-router.get('/usuarios/:id', auth, getUsuario);
-router.get('/usuarios', auth, getUsuario);
+router.get('/usuarios/:id',  getUsuario);
+router.get('/usuarios',  getUsuario);
 router.post('/usuarios', postUsuario);
-router.put('/usuarios/:id', auth, putUsuario);
-router.delete('/usuarios/:id', auth, deleteUsuario);
+router.put('/usuarios/:id',  putUsuario);
+router.delete('/usuarios/:id',  deleteUsuario);
 
 export default router;

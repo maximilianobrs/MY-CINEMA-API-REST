@@ -31,9 +31,9 @@ export const getTemporadas = async (req, res) => {
 
 export const postTemporada = async (req, res) => {
     try {
-        const { numeroTemporada, anioLanzamiento, id_serie } = req.body;
+        const { numeroTemporadas, aniaLanzamiento, id_serie } = req.body;
 
-        if (!numeroTemporada || !anioLanzamiento || !id_serie) {
+        if (!numeroTemporadas || !aniaLanzamiento || !id_serie) {
             return res.status(400).json({
                 code: 400,
                 message: 'Falta de datos requeridos',
@@ -41,7 +41,7 @@ export const postTemporada = async (req, res) => {
             });
         };
 
-        const result = await service.postTemporada(numeroTemporada, anioLanzamiento, id_serie);
+        const result = await service.postTemporada(numeroTemporadas, aniaLanzamiento, id_serie);
 
         if (result.error) {
             return res.status(result.code).json({ code: result.code, message: result.message, error: result.error });

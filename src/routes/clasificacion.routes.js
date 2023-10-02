@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/clasificaciones/:id', getClasificacion);
 router.get('/clasificaciones', getClasificaciones);
-router.post('/clasificaciones', auth, postClasificacion);
-router.put('/clasificaciones/:id', auth, putClasificacion);
-router.delete('/clasificaciones/:id', auth, deleteClasificacion);
+router.post('/clasificaciones',  postClasificacion);
+router.put('/clasificaciones/:id',  putClasificacion);
+router.delete('/clasificaciones/:id',  deleteClasificacion);
 
 export default router;

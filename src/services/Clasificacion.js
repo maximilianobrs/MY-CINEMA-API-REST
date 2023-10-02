@@ -1,5 +1,5 @@
 import { Clasificacion, Serie, Pelicula } from "../models/index.js";
-import { PORT } from "../configs/configs.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getClasificacion = async (id) => {
     try {
@@ -19,22 +19,23 @@ const getClasificacion = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                    href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                    href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                    href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                 },
-            ],
-            all:{
-                href: `http://localhost:${PORT}/api/v1/clasificaciones`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/clasificaciones`
+                }
+            ]
         }
 
         return {
@@ -71,22 +72,22 @@ const getClasificaciones = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                        href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                        href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                        href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/clasificaciones/${clasificacion.id_clasificacion}`
+                        href: `${BASE_URL}/clasificaciones/${clasificacion.id_clasificacion}`
                     },
                 ],
             }

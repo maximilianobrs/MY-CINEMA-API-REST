@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/actores/:id', getActor);
 router.get('/actores', getActores);
-router.post('/actores', auth, postActor);
-router.put('/actores/:id', auth, putActor);
-router.delete('/actores/:id', auth, deleteActor);
+router.post('/actores',  postActor);
+router.put('/actores/:id',  putActor);
+router.delete('/actores/:id',  deleteActor);
 
 export default router;
