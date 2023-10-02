@@ -32,7 +32,7 @@ export const getGeneros = async (req, res) => {
 export const postGenero = async (req, res) => {
     try {
         const { genero } = req.body;
-
+        console.log(genero);
         if (!genero) {
             return res.status(400).json({
                 code: 400,

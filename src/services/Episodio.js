@@ -1,4 +1,5 @@
 import { Episodio, Temporada } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getEpisodio = async (id) => {
     try {
@@ -18,22 +19,23 @@ const getEpisodio = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                    href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                    href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                    href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                 },
-            ],
-            all:{
-                href: `http://localhost:${PORT}/api/v1/episodios`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/episodios`
+                }
+            ]
         }
 
         return {
@@ -70,22 +72,22 @@ const getEpisodios = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                        href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                        href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                        href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/episodios/${episodio.id_episodio}`
+                        href: `${BASE_URL}/episodios/${episodio.id_episodio}`
                     },
                 ],
             }

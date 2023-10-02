@@ -1,5 +1,5 @@
 import { Actor, Serie, Pelicula } from "../models/index.js";
-import { PORT } from "../configs/configs.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getActor = async (id) => {
     try {
@@ -19,22 +19,23 @@ const getActor = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                    href: `${BASE_URL}/actores/${actor.id_actor}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                    href: `${BASE_URL}/actores/${actor.id_actor}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                    href: `${BASE_URL}/actores/${actor.id_actor}`
                 },
-            ],
-            all:{
-                href: `http://localhost:${PORT}/api/v1/actores`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/actores`
+                }
+            ]
         }
 
         return {
@@ -71,22 +72,22 @@ const getActores = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                        href: `${BASE_URL}/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                        href: `${BASE_URL}/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                        href: `${BASE_URL}/actores/${actor.id_actor}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/actores/${actor.id_actor}`
+                        href: `${BASE_URL}/actores/${actor.id_actor}`
                     },
                 ],
             }

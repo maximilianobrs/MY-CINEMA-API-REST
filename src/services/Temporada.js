@@ -1,4 +1,5 @@
 import { Temporada, Serie } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getTemporada = async (id) => {
     try {
@@ -18,22 +19,23 @@ const getTemporada = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                    href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                    href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                    href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                 },
-            ],
-            all: {
-                href: `http://localhost:${PORT}/api/v1/temporadas`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/temporadas`
+                }
+            ]
         }
 
         return {
@@ -70,22 +72,22 @@ const getTemporadas = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                        href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                        href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                        href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/temporadas/${temporada.id_temporada}`
+                        href: `${BASE_URL}/temporadas/${temporada.id_temporada}`
                     },
                 ],
             }
@@ -106,10 +108,10 @@ const getTemporadas = async () => {
     }
 };
 
-const postTemporada = async (numeroTemporada, anioLanzamiento, id_serie) => {
+const postTemporada = async (numeroTemporadas, aniaLanzamiento, id_serie) => {
     try {
         const serie = await Serie.findByPk(id_serie);
-        const temporada = await Temporada.create({ numeroTemporada, anioLanzamiento, id_serie });
+        const temporada = await Temporada.create({ numeroTemporadas, aniaLanzamiento, id_serie });
 
         if (!serie || serie === null) {
             return ({

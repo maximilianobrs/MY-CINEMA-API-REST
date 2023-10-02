@@ -1,11 +1,12 @@
 import { Pelicula, Genero } from "../models/index.js";
-import { PORT } from "../configs/configs.js";
+import { BASE_URL } from "../configs/configs.js";
+import { helperUrl } from "../utils/helperUrl.js";
 
 const getPelicula = async (id) => {
     try {
         const pelicula = await Pelicula.findByPk(id);
-
-        if (pelicula.length === 0) {
+        
+        if (!pelicula) {
             return {
                 code: 404,
                 message: 'No se encontro la pelicula',
@@ -17,29 +18,36 @@ const getPelicula = async (id) => {
             ...pelicula.dataValues,
             links: [
                 {
-                    rel: 'post',
-                    method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
-                },
-                {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                    href: `${BASE_URL}/peliculas/${pelicula.id_pelicula}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                    href: `${BASE_URL}/peliculas/${pelicula.id_pelicula}`
                 },
-            ],
-            all: {
-                href: `http://localhost:${PORT}/api/v1/peliculas`
-            }
+                ...helperUrl(pelicula.id_pelicula, 'peliculas',
+                    [
+                        'actores', 'generos', 'clasificacion', 'comentarios', 'valoraciones'
+                    ]),
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/peliculas`
+                }
+            ]
         }
 
         return {
             code: 200,
             message: 'pelicula encontrada',
+            links:[
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `${BASE_URL}peliculas`
+                },
+            ],
             peliculas: result
         };
 
@@ -55,8 +63,8 @@ const getPelicula = async (id) => {
 const getPeliculas = async () => {
     try {
         const peliculas = await Pelicula.findAll();
-
-        if (peliculas.length === 0) {
+        
+        if (!peliculas) {
             return {
                 code: 404,
                 message: 'No se encontraron las peliculas',
@@ -65,29 +73,31 @@ const getPeliculas = async () => {
         }
 
         const result = peliculas.map((pelicula) => {
+            
+            const helperLinks = helperUrl(pelicula.id_pelicula, 'peliculas',
+            [
+                'actores', 'generos', 'clasificacion', 'comentarios', 'valoraciones'
+            ])
+            
             return {
                 ...pelicula.dataValues,
                 links: [
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
-                    },
-                    {
-                        rel: 'post',
-                        method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                        href: `${BASE_URL}/peliculas/${pelicula.id_pelicula}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                        href: `${BASE_URL}/peliculas/${pelicula.id_pelicula}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/peliculas/${pelicula.id_pelicula}`
+                        href: `${BASE_URL}/peliculas/${pelicula.id_pelicula}`
                     },
+                    ...helperLinks
                 ],
             }
         })
@@ -95,6 +105,13 @@ const getPeliculas = async () => {
         return {
             code: 200,
             message: 'peliculas encontradas',
+            links:[
+                {
+                    rel: 'post',
+                    method: 'POST',
+                    href: `${BASE_URL}peliculas`
+                },
+            ],
             peliculas: result
         };
 
@@ -123,7 +140,7 @@ const postPelicula = async (titulo, aniaLanzamiento, sinopsis, director, duracio
         if (generoIds && generoIds.length > 0) {
             const generos = await Genero.findAll({ where: { id: generoIds } });
             if (generos && generos.length > 0) {
-                await Pelicula.addGeneros(generos);
+                await pelicula.addGeneros(generos);
             } else {
                 return {
                     code: 404,

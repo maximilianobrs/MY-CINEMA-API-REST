@@ -1,4 +1,5 @@
-import { Comentario, Comentario, Usuario } from "../models/index.js";
+import { Comentario, Usuario } from "../models/index.js";
+import { BASE_URL } from "../configs/configs.js";
 
 const getComentario = async (id) => {
     try {
@@ -18,22 +19,23 @@ const getComentario = async (id) => {
                 {
                     rel: 'post',
                     method: 'POST',
-                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                    href: `${BASE_URL}/comentarios/${actor.id_actor}`
                 },
                 {
                     rel: 'update',
                     method: 'PUT',
-                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                    href: `${BASE_URL}/comentarios/${actor.id_actor}`
                 },
                 {
                     rel: 'delete',
                     method: 'DELETE',
-                    href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                    href: `${BASE_URL}/comentarios/${actor.id_actor}`
                 },
-            ],
-            all:{
-                href: `http://localhost:${PORT}/api/v1/comentarios`
-            }
+                {
+                    rel: 'all',
+                    href: `${BASE_URL}/comentarios`
+                }
+            ]
         }
 
         return {
@@ -70,22 +72,22 @@ const getComentarios = async () => {
                     {
                         rel: 'self',
                         method: 'GET',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                        href: `${BASE_URL}/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'post',
                         method: 'POST',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                        href: `${BASE_URL}/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'update',
                         method: 'PUT',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                        href: `${BASE_URL}/comentarios/${actor.id_actor}`
                     },
                     {
                         rel: 'delete',
                         method: 'DELETE',
-                        href: `http://localhost:${PORT}/api/v1/comentarios/${actor.id_actor}`
+                        href: `${BASE_URL}/comentarios/${actor.id_actor}`
                     },
                 ],
             }

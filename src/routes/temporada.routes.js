@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/temporadas/:id', getTemporada);
 router.get('/temporadas', getTemporadas);
-router.post('/temporadas', auth, postTemporada);
-router.put('/temporadas/:id', auth, putTemporada);
-router.delete('/temporadas/:id', auth, deleteTemporada);
+router.post('/temporadas',  postTemporada);
+router.put('/temporadas/:id',  putTemporada);
+router.delete('/temporadas/:id',  deleteTemporada);
 
 export default router;

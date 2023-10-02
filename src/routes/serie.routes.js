@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/series/:id', getSerie);
 router.get('/series', getSeries);
-router.post('/series', auth, postSerie);
-router.put('/series/:id', auth, putSerie);
-router.delete('/series/:id', auth, deleteSerie);
+router.post('/series',  postSerie);
+router.put('/series/:id',  putSerie);
+router.delete('/series/:id',  deleteSerie);
 
 export default router;
